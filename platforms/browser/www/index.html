@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+    <title>i-Rate</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <style>
+        .banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/banner.jpg');
+            height: 300px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .banner .txt h1 {
+            text-align: center;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+        
+        .banner .txt button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 10px;
+            color: rgb(98, 141, 151);
+            background-color: whitesmoke;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .banner .txt button:hover {
+            background-color: #555;
+            color: white;
+        }
+        
+        .x {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HOME -->
+    <div data-role="page" id="home">
+        <div data-role="header" class="banner">
+            <div class="txt">
+                <h1>i-Rate</h1>
+                <button style="position: absolute;top: 50%;left: 25%;"><a href="#notification"><i class="fa fa-bell" aria-hidden="true" style="color: rgb(194, 9, 9);"></i><span style="color: rgb(194, 9, 9);"> Notification</span></a></button>
+                <button style="position: absolute;top: 50%;left: 55%;"><a href="#add"><i class="fa fa-star" aria-hidden="true" style="color: rgb(119, 119, 6);"></i><span style="color: rgb(119, 119, 6);"> Rate Now!</span></a></button>
+            </div>
+        </div>
+        <div data-role="main" class="col-md-4 mb-3">
+            <ul data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search Restaurant..." data-inset="true" id="restaurants">
+            </ul>
+        </div>
+        <div data-role="footer" class="card text-center" style="background-image: url();">
+            <h1 class="card-text">i-Rate</h1>
+            <p style="text-transform: capitalize;">Current version: 1.0.1</p>
+            <button style="position: absolute;bottom: 1%; right: 1%;"><a href="#home"><span><i class="fa fa-arrow-up"></i></span></a></button>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION -->
+    <div data-role="page" id="notification">
+        <div data-role="header" class="banner">
+            <div class="txt">
+                <h1>i-Rate</h1>
+                <button style="position: absolute;top: 50%;left: 30%;"><a href="#home"><i class="fa fa-home" aria-hidden="true" style="color: blue;"></i><span style="color: blue;"> Home</span></a></button>
+                <button style="position: absolute;top: 50%;left: 50%;"><a href="#add"><i class="fa fa-star" aria-hidden="true" style="color: rgb(119, 119, 6);"></i><span style="color: rgb(119, 119, 6);"> Rate Now!</span></a></button>
+            </div>
+        </div>
+        <div data-role="main" class="col-md-4 mb-3">
+            <button onclick="ring()">Ring</button>
+            <button onclick="vibrate()">Vibrate</button>
+        </div>
+    </div>
+
+    <!-- ADD -->
+    <div data-role="page" id="add">
+        <div data-role="header" class="banner">
+            <div class="txt">
+                <h1>Add Rate Restaurant</h1>
+                <button style="position: absolute;top: 60%;left: 40%;"><a href="#home"><i class="fa fa-home" aria-hidden="true" style="color: blue;"></i><span style="color: blue;"> Home</span></a></button>
+            </div>
+        </div>
+        <div data-role="main">
+            <h1>Rate Form</h1>
+            <form id="addrate" name="addrate">
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="name">Restaurant Name <span style="color: red;">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter name of Restaurant" id="name" required>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="type">Restaurant Type <span style="color: red;">*</span></label>
+                    <input id="type" list="types" type="text" placeholder="Please choose or enter type of restaurant" required />
+                    <datalist id="types">
+                <option value="Grill"></option>
+                <option value="Bar"></option>  
+                <option value="Fast food"></option> 
+                <option value="Coffee"></option>
+                <option value="Seafood"></option>
+            </datalist>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="files">Image </label>
+                    <input type="file" id="files" name="files" multiple capture>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="address">Address <span style="color: red;">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter restaurant address" id="address" required>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="cost">Average meal price per person <span style="color: red;">*</span></label>
+                    <select name="cost" id="cost" required>
+                <option value="$">$</option>
+                <option value="$$">$$</option>    
+                <option value="$$$">$$$</option>
+                <option value="$$$$">$$$$</option>
+                <option value="$$$$$">$$$$$</option>
+            </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="rate_service">Rating for Service <span style="color: red;">*</span></label>
+                    <select name="rate_service" id="rate_service" required>
+                <option value="1">Bad</option>
+                <option value="2">Fair</option>
+                <option value="3">Normal</option>
+                <option value="4">Good</option>
+                <option value="5">Excellent</option>
+            </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="rate_clean">Rating for Cleanliness <span style="color: red;">*</span></label>
+                    <select name="rate_clean" id="rate_clean" required>
+                <option value="1">Bad</option>
+                <option value="2">Fair</option>
+                <option value="3">Normal</option>
+                <option value="4">Good</option>
+                <option value="5">Excellent</option>
+            </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="rate_food">Rating for Food Quality <span style="color: red;">*</span></label>
+                    <select name="rate_food" id="rate_food" required>
+                <option value="1">Bad</option>
+                <option value="2">Fair</option>
+                <option value="3">Normal</option>
+                <option value="4">Good</option>
+                <option value="5">Excellent</option>
+            </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="date_time">Day & time of the visit <span style="color: red;">*</span></label>
+                    <input type="date" class="form-control" id="date" required>
+                    <input type="time" class="form-control" id="time" required>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold">Notes </label>
+                    <textarea class="form-control" rows="5" placeholder="Any notes here" id="notes"></textarea>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label style="text-transform: capitalize; font-weight: bold" for="owner">Name of Reporter <span style="color: red;">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter name of reporter" id="owner" required>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <button onclick="ring()" type="submit" class="btn btn-success" style="background-color: green; color: rgb(236, 231, 231);">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DETAILS -->
+    <div style="background-color: rgb(36, 122, 214);" class="modal fade" id="detail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    </div>
+
+
+    <!-- JS -->
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+</body>
+
+</html>
